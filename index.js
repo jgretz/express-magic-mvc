@@ -33,7 +33,7 @@ const loadFiles = (paths) => {
       absolutePath: file,
       relativePath: relativePath,
 
-      instance: require(`${__dirname}/file`)
+      instance: require(`${__dirname}/${file}`)
     };
   });
 };
