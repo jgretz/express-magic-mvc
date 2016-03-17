@@ -11,6 +11,11 @@ const glob = require('glob');
 const defaultConfig = {
   src: './src',
 
+  spa: {
+    path: '/release',
+    index: 'index.html'
+  },
+
   port: 3000
 };
 
@@ -65,6 +70,18 @@ const applyRoutes = (app, config) => {
   });
 
   app.use(router);
+};
+
+const routeSpa = (app, config) {
+  if (!config.spa) {
+    return;
+  }
+
+  // map to the spa app
+  app.use(express.static(`${__dirname}${config.spa.path}`));
+  app.get('*', function(req, res) {
+  	res.status(200).sendFile(path.join(`${__dirname}${config.spa.path}/${config.spa.index}`));
+  });
 };
 
 // server define
