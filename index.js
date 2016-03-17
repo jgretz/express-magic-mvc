@@ -6,6 +6,7 @@ const _ = require('underscore');
 const objectAssign = require('object-assign');
 const express = require('express');
 const glob = require('glob');
+const path = require('path');
 
 // default config
 const defaultConfig = {
@@ -72,7 +73,7 @@ const applyRoutes = (app, config) => {
   app.use(router);
 };
 
-const routeSpa = (app, config) {
+const configureSpaRoute = (app, config) => {
   if (!config.spa) {
     return;
   }
@@ -93,6 +94,8 @@ const server = {
     // load config
     applyConfig(app, config);
     applyRoutes(app, config);
+
+    configureSpaRoute(app, config);
 
     // run
     app.listen(process.env.PORT || config.port);
