@@ -29,11 +29,13 @@ const loadFiles = (paths) => {
     let relativePath = file;
     _.each(paths, path => relativePath = relativePath.replace(path, ''))
 
+    const requirePath = file.startsWith(__dirname) ? file : `../../${file}`;
+
     return {
       absolutePath: file,
       relativePath: relativePath,
 
-      instance: require('../../' + file)
+      instance: require(requirePath)
     };
   });
 };
