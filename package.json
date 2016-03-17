@@ -1,0 +1,38 @@
+{
+  "name": "express-magic-mvc",
+  "version": "1.0.0",
+  "description": "a simple and lightweight framework built on express with the goal of making it quick and simple to create controllers, but open enough to let you add what you need",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "debug": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jgretz/express-magic-mvc.git"
+  },
+  "keywords": [
+    "express",
+    "mvc",
+    "magic-mvc"
+  ],
+  "author": {
+    "name": "Josh Gretz",
+    "email": "jgretz@gmail.com",
+    "url": "http://www.gretzlab.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jgretz/express-magic-mvc/issues"
+  },
+  "homepage": "https://github.com/jgretz/express-magic-mvc#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "glob": "^7.0.3",
+    "object-assign": "^4.0.1",
+    "promise": "^7.1.1",
+    "underscore": "^1.8.3",
+    "use-strict": "^1.0.1"
+  }
+}
