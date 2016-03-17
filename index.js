@@ -39,13 +39,13 @@ const loadFiles = (paths) => {
 };
 
 const applyConfig = (app, config) => {
-  const configFuncs = loadFiles(['./src/config/', `${config.src}/config/`]);
+  const configFuncs = loadFiles(['./src/config/', `${__dirname}/${config.src}/config/`]);
 
   _.each(configFuncs, f => f.instance(app));
 };
 
 const applyRoutes = (app, config) => {
-  const paths = [ './src/routes', `${config.src}/routes` ];
+  const paths = [ './src/routes', `${__dirname}/${config.src}/routes` ];
   const routes = loadFiles(paths);
 
   var router = express.Router();
