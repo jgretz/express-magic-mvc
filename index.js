@@ -25,6 +25,8 @@ const loadFiles = (paths) => {
   const rawFiles = paths.map(path => glob.sync(`${path}/**/*.js`));
   const files = _.uniq(_.flatten(rawFiles));
 
+  console.log(paths, files);
+
   return files.map((file) => {
     let relativePath = file;
     _.each(paths, path => relativePath = relativePath.replace(path, ''))
@@ -33,19 +35,19 @@ const loadFiles = (paths) => {
       absolutePath: file,
       relativePath: relativePath,
 
-      instance: require(`${__dirname}/${file}`)
+      instance: require(file)
     };
   });
 };
 
 const applyConfig = (app, config) => {
-  const configFuncs = loadFiles(['./src/config/', `${__dirname}/${config.src}/config/`]);
+  const configFuncs = loadFiles([`${__dirname}/src/config/`, `${config.src}/config/`]);
 
   _.each(configFuncs, f => f.instance(app));
 };
 
 const applyRoutes = (app, config) => {
-  const paths = [ './src/routes', `${__dirname}/${config.src}/routes` ];
+  const paths = [`${__dirname}/src/routes/`, `${config.src}/routes` ];
   const routes = loadFiles(paths);
 
   var router = express.Router();
@@ -79,9 +81,9 @@ const configureSpaRoute = (app, config) => {
   }
 
   // map to the spa app
-  app.use(express.static(`${__dirname}${config.spa.path}`));
+  app.use(express.static(`${config.spa.path}`));
   app.get('*', function(req, res) {
-  	res.status(200).sendFile(path.join(`${__dirname}${config.spa.path}/${config.spa.index}`));
+  	res.status(200).sendFile(path.join(`${config.spa.path}/${config.spa.index}`));
   });
 };
 
