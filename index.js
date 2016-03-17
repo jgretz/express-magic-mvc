@@ -25,8 +25,6 @@ const loadFiles = (paths) => {
   const rawFiles = paths.map(path => glob.sync(`${path}/**/*.js`));
   const files = _.uniq(_.flatten(rawFiles));
 
-  console.log(paths, files);
-
   return files.map((file) => {
     let relativePath = file;
     _.each(paths, path => relativePath = relativePath.replace(path, ''))
@@ -35,7 +33,7 @@ const loadFiles = (paths) => {
       absolutePath: file,
       relativePath: relativePath,
 
-      instance: require(file)
+      instance: require('../../' + file)
     };
   });
 };
