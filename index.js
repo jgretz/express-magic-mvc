@@ -46,29 +46,23 @@ const applyConfig = (app, config) => {
 };
 
 const applyRoutes = (app, config) => {
+  const verbs = ['get','post','put','delete'];
+
   const paths = [`${__dirname}/src/routes/`, `${config.src}/routes` ];
   const routes = loadFiles(paths);
 
   var router = express.Router();
   _.each(routes, (load) => {
     const path = load.relativePath.replace('.js', '');
-    const controller = load.instance;
-
-    if (controller.get) {
-      router.get(path, controller.get);
+    if (path == "index") {
+      path = "/";
     }
-
-    if (controller.post) {
-      router.post(path, controller.post);
-    }
-
-    if (controller.put) {
-      router.put(path, controller.put);
-    }
-
-    if (controller.delete) {
-      router.delete(path, controller.delete);
-    }
+    
+    _.each(verbs, (verb) => {
+      if (load.instance[verb]) {
+        router[verb](path, load.instance[verb]);
+      }
+    });
   });
 
   app.use(router);
