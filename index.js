@@ -54,10 +54,13 @@ const applyRoutes = (app, config) => {
   var router = express.Router();
   _.each(routes, (load) => {
     const path = load.relativePath.replace('.js', '');
-    if (path == "index") {
-      path = "/";
+
+    // account for index
+    if (path.includes('index')) {
+      path = path.replace('index', '');
     }
-    
+
+    // attach methods defined
     _.each(verbs, (verb) => {
       if (load.instance[verb]) {
         router[verb](path, load.instance[verb]);
