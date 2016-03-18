@@ -1,5 +1,4 @@
 'use strict';
-require("use-strict");
 
 // import
 const _ = require('underscore');
