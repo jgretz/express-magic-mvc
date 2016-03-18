@@ -54,8 +54,6 @@ const applyRoutes = (app, config) => {
   var router = express.Router();
   _.each(routes, (load) => {
     let path = load.relativePath.replace('.js', '');
-
-    // account for index
     if (path.includes('index')) {
       path = path.replace('index', '');
     }
