@@ -30,11 +30,15 @@ const loadFiles = (paths) => {
 
     const requirePath = file.startsWith(__dirname) ? file : `../../${file}`;
 
+    var instance = require(requirePath);
+    if (instance.default) {
+      instance = instance.default;
+    }
+
     return {
       absolutePath: file,
       relativePath: relativePath,
-
-      instance: require(requirePath)
+      instance: instance
     };
   });
 };
