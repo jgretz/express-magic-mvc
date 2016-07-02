@@ -62,10 +62,22 @@ const applyRoutes = (app, config) => {
       path = path.replace('index', '');
     }
 
-    // attach methods defined
+    const before = load.instance['before'];
+    const after = load.instance['after'];
+
     _.each(verbs, (verb) => {
       if (load.instance[verb]) {
-        router[verb](path, load.instance[verb]);
+        router[verb](path, (req, res) => {
+          if (before) {
+            before(req, res);
+          }
+
+          load.instance[verb](req, res);
+
+          if (after) {
+            after(req, res);
+          }
+        });
       }
     });
   });
